@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Portfolio Homepage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Font Awesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; }
+
+    .homepage { width: 100%; overflow-x: hidden; }
+
+    /* === Slider === */
+    .homepage .slider-container {
+      position: relative; width: 100%; height: 100vh;
+      overflow: hidden;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+      color: #fff;
+    }
+    .homepage .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      padding: 20px 40px; display: flex; flex-direction: column;
+      background-size: cover; background-position: center;
+      opacity: 0; z-index: 0; transition: opacity 1s ease-in-out;
+    }
+    .homepage .slide.active { opacity: 1; z-index: 1; }
+
+    .homepage header { display: flex; justify-content: flex-end; gap: 30px; padding: 20px; }
+    .homepage header a { color: #fff; text-decoration: none; font-size: 18px; }
+    .homepage header a:hover { color: #e50914; }
+
+    .homepage .content { display: flex; justify-content: space-between; align-items: center; flex: 1; }
+    .homepage .left { max-width: 600px; }
+    .homepage .left h1 { font-size: 48px; margin-bottom: 20px; }
+    .homepage .left p { font-size: 18px; margin-bottom: 30px; }
+    .homepage .left button {
+      background-color: #e50914; color: #fff; border: none;
+      padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 4px;
+    }
+
+    .homepage .project-counter { text-align: right; }
+    .homepage .project-counter .number { font-size: 48px; font-weight: bold; }
+    .homepage .project-counter .line {
+      display: inline-block; width: 4px; height: 40px; background-color: #e50914; margin-left: 10px; vertical-align: middle;
+    }
+    .homepage .project-counter .description { margin-top: 10px; font-size: 16px; max-width: 200px; }
+
+    .homepage .dots {
+      position: absolute; bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 10px;
+    }
+    .homepage .dot {
+      width: 12px; height: 12px; background: #ccc; border-radius: 50%; cursor: pointer;
+    }
+    .homepage .dot.active { background: #e50914; }
+
+    .homepage .play-button {
+      position: absolute; bottom: 80px; left: 50%;
+      transform: translateX(-50%);
+      width: 70px; height: 70px; background: #e50914; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .homepage .play-button:hover { transform: translateX(-50%) scale(1.1); }
+    .homepage .play-button::before {
+      content: ''; display: block; width: 0; height: 0;
+      border-left: 18px solid #fff;
+      border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+      margin-left: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .homepage .content { flex-direction: column; align-items: flex-start; }
+      .homepage .project-counter { text-align: left; margin-top: 30px; }
+    }
+
+    /* === About Us === */
+    .homepage .about-us {
+      background: #fff; text-align: center; padding: 80px 20px; color: #000;
+    }
+    .homepage .about-us h2 { font-size: 36px; margin-bottom: 40px; }
+
+    .homepage .about-icons {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-bottom: 60px;
+    }
+    .homepage .about-icon {
+      display: flex; flex-direction: column; align-items: center;
+      font-size: 40px; color: #e50914; transition: transform 0.3s;
+    }
+    .homepage .about-icon:hover { transform: scale(1.1); }
+    .homepage .about-icon span { margin-top: 10px; font-size: 16px; color: #000; }
+
+    .homepage .about-columns {
+      display: flex; justify-content: space-between; flex-wrap: wrap; text-align: left; gap: 40px; margin-top: 40px;
+    }
+    .homepage .column { flex: 1; min-width: 250px; display: flex; flex-direction: column; }
+    .homepage .column img { width: 100%; max-width: 300px; height: auto; }
+    .homepage .column p { font-size: 16px; line-height: 1.6; }
+    .homepage .column strong { display: block; margin-bottom: 10px; color: #000; font-weight: bold; }
+    .homepage .column button {
+      background: #e50914; color: #fff; border: none; padding: 10px 20px; margin-top: 20px;
+      font-size: 16px; cursor: pointer; border-radius: 4px;
+    }
+    .homepage .column button:hover { background: #c40812; }
+
+    .homepage .about-stats {
+      display: flex; justify-content: center; flex-wrap: wrap; margin-top: 60px; gap: 40px;
+    }
+    .homepage .stat { flex: 1; min-width: 200px; text-align: center; }
+    .homepage .stat .number { color: #e50914; font-size: 48px; font-weight: bold; }
+    .homepage .stat .heading { color: #000; font-weight: bold; font-size: 20px; margin: 10px 0; }
+    .homepage .stat .description { color: #555; font-size: 16px; }
+
+    @media (max-width: 992px) {
+      .homepage .about-columns { flex-direction: column; text-align: center; }
+      .homepage .column { text-align: center; }
+    }
+
+    .homepage .work-item .developer-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0 20px;
+  gap: 10px;
+}
+
+.homepage .work-item .developer-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e50914;
+}
+
+.homepage .work-item .developer-info span {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+.homepage .our-work-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.homepage .work-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-width: 800px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.homepage .work-item .project-image {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+}
+
+.homepage .work-item .work-details {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.homepage .work-item .work-details h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.homepage .work-item .work-details p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.homepage .work-item .developer-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.homepage .work-item .developer-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e50914;
+}
+
+.homepage .work-item .developer-info span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .homepage .work-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .homepage .work-item .project-image {
+    width: 100%;
+  }
+
+  .homepage .work-item .work-details {
+    padding: 20px;
+  }
+}
+/* === Our Work === */
+.homepage .our-work {
+  background: #f1f1f1;
+  text-align: center;  /* 👈 Ensures h2 and other inline elements are centered */
+  padding: 80px 20px;
+  color: #000;
+}
+
+.homepage .our-work h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  text-align: center;  /* 👈 Safe to add too */
+}
+
+/* === Testimonials === */
+.testimonials {
+  padding: 80px 20px;
+  text-align: center;
+  background: #fff;
+}
+
+.testimonials h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.testimonial-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.testimonial-card {
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+.quote-icon {
+  font-size: 40px;
+  color: #d90429;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.testimonial-card p {
+  font-size: 16px;
+  color: #666;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.testimonial-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.testimonial-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.testimonial-card span {
+  font-size: 14px;
+  color: #888;
+}
+
+.homepage .get-started {
+  position: relative;
+  background-image: url('img.jpg'); /* Replace with your image */
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 100px 40px;
+  text-align: left;
+}
+
+.homepage .get-started::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* dark overlay */
+  z-index: 0;
+}
+
+.homepage .get-started-content {
+  position: relative;
+  max-width: 700px;
+  z-index: 1;
+}
+
+.homepage .get-started h5 {
+  color: #e50914;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.homepage .get-started h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.homepage .get-started p {
+  font-size: 18px;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+.homepage .get-started button {
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.homepage .get-started-btn {
+  display: inline-block;
+  background-color: #e50914;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.homepage .get-started-btn:hover {
+  background-color: #c40812;
+}
+
+.homepage .recent-blog {
+  background: #f9f9f9;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.homepage .recent-blog h2 {
+  font-size: 36px;
+  margin-bottom: 50px;
+  font-weight: bold;
+  color: #222;
+}
+
+.homepage .blog-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.homepage .blog-post {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 250px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.homepage .blog-post h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.homepage .blog-post img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.homepage .blog-meta {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.homepage .blog-meta i {
+  margin-right: 4px;
+}
+
+.homepage .blog-post p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* === Footer === */
+.site-footer {
+  background: #000;
+  color: #fff;
+  padding: 80px 40px 40px;
+  position: relative;
+  clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 180px;
+}
+
+.footer-col h3,
+.footer-col h4 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.footer-col p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #999;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #aaa;
+}
+
+.footer-col ul li i {
+  margin-right: 8px;
+}
+
+.social-icons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons i {
+  font-size: 16px;
+  color: #fff;
+  background: #222;
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.social-icons i:hover {
+  background: #e50914;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: #999;
+}
+
+/* === Top-Right Navigation === */
+.main-header {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  z-index: 10;
+}
+
+.nav-left {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-left a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-left a:hover {
+  color: #e50914;
+}
+
+@media (max-width: 768px) {
+  .nav-left {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-end;
+  }
+
+  .main-header {
+    right: 20px;
+  }
+}
+
+/* === Logo at Top-Left === */
+.site-logo {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  font-size: 26px;
+  font-weight: bold;
+  z-index: 11;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.site-logo .white {
+  color: #fff;
+}
+
+.site-logo .red {
+  color: #e50914;
+}
+
+.menu-toggle {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 26px;
+  color: #fff;
+  z-index: 20;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-left {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+  }
+
+  .nav-left.show {
+    display: flex;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .nav-left {
+    display: none;
+    flex-direction: column;
+    background: #000;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 999;
+  }
+
+  .nav-left.show {
+    display: flex;
+  }
+
+  .nav-left a {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .nav-left {
+    display: none !important; /* Hide by default on mobile */
+    flex-direction: column !important;
+    background: #000;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 999;
+    width: 200px;
+    align-items: flex-start;
+    gap: 10px !important;
+  }
+
+  .nav-left.show {
+    display: flex !important;
+  }
+
+  .nav-left a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    width: 100%;
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="homepage">
+
+    <!-- === Slider === -->
+    <div class="slider-container" id="home">
+
+
+
+
+      
+      <header class="main-header">
+  <nav class="nav-left">
+    <a href="Index.html">Home</a>
+<a href="about.html">About Us</a>
+<a href="ourwork.html">Our Work</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<div class="menu-toggle" id="menuToggle">
+  <i class="fas fa-bars"></i>
+</div>
+
+
+      <div class="slide active" style="background-image: url('img.jpg');">
+        <div class="content">
+          <div class="left">
+            <h1>WE CREATE MODERN & MINIMAL WEBSITES</h1>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+            <button>Start Project</button>
+          </div>
+          <div class="project-counter">
+            <div class="number">400</div>
+            <div class="line"></div>
+            <div class="description">Successfully delivered to Customers</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('img1.jpg');">
+        <div class="content">
+          <div class="left">
+            <h1>WE CREATE MODERN & MINIMAL WEBSITES</h1>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+            <button>Explore Project</button>
+          </div>
+          <div class="project-counter">
+            <div class="number">21</div>
+            <div class="line"></div>
+            <div class="description">Years of Experience</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+      </div>
+<a href="https://preview.colorlib.com/theme/avo/index.html" class="play-button" target="_blank" aria-label="Play Video"></a>
+    </div>
+
+    <!-- === About Us === -->
+<section class="about-us" id="about">
+      <h2>About Us</h2>
+      <div class="about-icons">
+        <div class="about-icon"><i class="fas fa-pencil-ruler"></i><span>UI/UX Design</span></div>
+        <div class="about-icon"><i class="fas fa-laptop-code"></i><span>Web Development</span></div>
+        <div class="about-icon"><i class="fas fa-cube"></i><span>Product Design</span></div>
+        <div class="about-icon"><i class="fas fa-mobile-alt"></i><span>Mobile Apps</span></div>
+        <div class="about-icon"><i class="fas fa-search"></i><span>SEO</span></div>
+      </div>
+
+      <div class="about-columns">
+        <div class="column">
+          <p><strong>Welcome to AVO A Personal Portfolio Web Agency</strong> Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+        </div>
+        <div class="column">
+          <img src="img2.jpg" alt="About Us Image">
+        </div>
+        <div class="column">
+          <p><strong>Far far away, behind the word mountains</strong> Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <button>View All Projects</button>
+        </div>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat">
+          <div class="number">01</div>
+          <div class="heading">Search Engine Optimization</div>
+          <div class="description">Far far away, behind the word mountains</div>
+        </div>
+        <div class="stat">
+          <div class="number">02</div>
+          <div class="heading">Search Engine Optimization</div>
+          <div class="description">Far far away, behind the word mountains</div>
+        </div>
+        <div class="stat">
+          <div class="number">03</div>
+          <div class="heading">Search Engine Optimization</div>
+          <div class="description">Far far away, behind the word mountains</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === Our Work === -->
+<section class="our-work" id="work">
+  <h2>Our Work</h2>
+  <div class="our-work-container">
+    <div class="work-item">
+      <img class="project-image" src="img3.jpg" alt="Project One">
+      <div class="work-details">
+        <h3>Cassete Tape</h3>
+        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        <div class="developer-info">
+          <img src="img6.jpg" alt="Developer One">
+          <span>Jane Doe</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-item">
+      <img class="project-image" src="img4.jpg" alt="Project Two">
+      <div class="work-details">
+        <h3>UI/UX Design</h3>
+        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        <div class="developer-info">
+          <img src="img7.jpg" alt="Developer Two">
+          <span>John Smith</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-item">
+      <img class="project-image" src="img5.jpg" alt="Project Three">
+      <div class="work-details">
+        <h3>Application
+           Miniwall Clock</h3>
+        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        <div class="developer-info">
+          <img src="img8.jpg" alt="Developer Three">
+          <span>Johnson</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+
+
+    <!-- === Clients says about === -->
+
+
+<section class="testimonials">
+  <h2>CLIENTS SAYS ABOUT US?</h2>
+  <div class="testimonial-cards">
+    <div class="testimonial-card">
+      <div class="quote-icon">❝</div>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+      <img src="img6.jpg" alt="Client 1">
+      <h3>PATRIK CUMMINS</h3>
+      <span>Marketing Manager</span>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-icon">❝</div>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+      <img src="img7.jpg" alt="Client 2">
+      <h3>Roger Scott</h3>
+      <span>Developer</span>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-icon">❝</div>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+      <img src="img8.jpg" alt="Client 3">
+      <h3>JOSH</h3>
+      <span>SEO</span>
+    </div>
+  </div>
+</section>
+
+<section class="get-started">
+  <div class="get-started-content">
+    <h5>Get Started</h5>
+    <h2>Fill in the brief and get the project estimate</h2>
+    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+    <a href="index.html" class="get-started-btn">Get started</a>
+
+  </div>
+</section>
+
+<section class="recent-blog" id="blog">
+  <h2>RECENT BLOG</h2>
+  <div class="blog-container">
+    <!-- Blog Post 1 -->
+    <div class="blog-post">
+      <h3>Amplify your blockchain team</h3>
+      <img src="img9.jpg" alt="Blog Image 1">
+      <div class="blog-meta">
+        <span>June 01, 2020</span>
+        <span>Admin</span>
+        <span><i class="fa fa-comment"></i> 3</span>
+      </div>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+    </div>
+
+    <!-- Blog Post 2 -->
+    <div class="blog-post">
+      <h3>Amplify your blockchain team</h3>
+      <img src="img10.jpg" alt="Blog Image 2">
+      <div class="blog-meta">
+        <span>June 01, 2020</span>
+        <span>Admin</span>
+        <span><i class="fa fa-comment"></i> 3</span>
+      </div>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+    </div>
+
+    <!-- Blog Post 3 -->
+    <div class="blog-post">
+      <h3>Amplify your blockchain team</h3>
+      <img src="img11.jpg" alt="Blog Image 3">
+      <div class="blog-meta">
+        <span>June 01, 2020</span>
+        <span>Admin</span>
+        <span><i class="fa fa-comment"></i> 3</span>
+      </div>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+    </div>
+
+    <!-- Blog Post 4 -->
+    <div class="blog-post">
+      <h3>Amplify your blockchain team</h3>
+      <img src="img12.jpg" alt="Blog Image 4">
+      <div class="blog-meta">
+        <span>June 01, 2020</span>
+        <span>Admin</span>
+        <span><i class="fa fa-comment"></i> 3</span>
+      </div>
+      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- === Footer === -->
+<footer class="site-footer" id="contact">
+  <div class="footer-content">
+    <div class="footer-col">
+      <h3>avo</h3>
+      <p>Far far away, behind<br>the word mountains,<br>far from the countries.</p>
+      <div class="social-icons">
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-instagram"></i>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Community</h4>
+      <ul>
+        <li>Projects</li>
+        <li>Team</li>
+        <li>Reviews</li>
+        <li>FAQs</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>About Us</h4>
+      <ul>
+        <li>Our Story</li>
+        <li>Meet the team</li>
+        <li>Careers</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li>About Us</li>
+        <li>Press</li>
+        <li>Contact</li>
+        <li>Careers</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Have a Questions?</h4>
+      <ul>
+        <li><i class="fas fa-map-marker-alt"></i> 203 Fake St. Mountain View, San Francisco, California, USA</li>
+        <li><i class="fas fa-phone"></i> +2 392 3929 210</li>
+        <li><i class="fas fa-envelope"></i> info@yourdomain.com</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright ©2025 All rights reserved | This template is made with <i class="fas fa-heart"></i> by Colorlib</p>
+  </div>
+</footer>
+
+<div class="site-logo">
+  <span class="white">a</span><span class="red">v</span><span class="white">o</span>
+</div>
+
+
+  <!-- === Slider Script === -->
+<script>
+  const slides = document.querySelectorAll('.homepage .slide');
+  const dots = document.querySelectorAll('.homepage .dot');
+  const sliderControls = document.querySelector('.slider-controls');
+  let index = 0;
+
+  function showSlide(i) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    slides[i].classList.add('active');
+    dots[i].classList.add('active');
+
+    // Show controls temporarily
+    sliderControls.classList.add('visible');
+    setTimeout(() => {
+      sliderControls.classList.remove('visible');
+    }, 2000);
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      index = i;
+      showSlide(index);
+    });
+  });
+
+  setInterval(() => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  }, 5000);
+
+  // Show first slide immediately
+  showSlide(index);
+</script>
+
+<!-- 👇 NEW script for mobile menu toggle -->
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.querySelector('.nav-left');
+
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+</script>
+
+
+</body>
+</html>

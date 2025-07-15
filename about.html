@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - Avo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+    }
+
+    /* === Top Banner === */
+    .top-image-container {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      animation: fadeInTop 1.5s ease;
+    }
+
+    .top-image {
+      width: 100%;
+      height: 550px; /* or 500px */
+      object-fit: cover;
+    }
+
+    /* Brand Text (AVO) */
+    .brand-text {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      z-index: 10;
+      display: flex;
+      gap: 2px;
+    }
+    .brand-text span:first-child { color: white; }
+    .brand-text span:nth-child(2) { color: red; }
+    .brand-text span:last-child  { color: white; }
+
+    /* Navigation */
+    .nav-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 20px;
+      z-index: 10;
+    }
+
+    .nav-buttons a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .nav-buttons a:hover {
+      color: red;
+    }
+
+    /* Center "About Us" */
+    /* Fancy animated text with stroke */
+    .about-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+      font-weight: bold;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      z-index: 10;
+      animation: slideUpFade 2s ease-in-out forwards;
+
+      /* Outline text effect */
+      color: transparent;
+      -webkit-text-stroke: 2px white;
+      text-shadow:
+        0 0 5px rgba(245, 14, 14, 0.925),
+        0 0 10px rgb(227, 19, 19);
+    }
+
+    @keyframes slideUpFade {
+      0% {
+        transform: translate(-50%, 60%);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+    }
+
+    /* === About Section === */
+    .about-us {
+      background: #fff;
+      text-align: center;
+      padding: 80px 20px;
+      color: #000;
+    }
+
+    .about-us h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: #e50914;
+    }
+
+    .about-icons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .about-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 40px;
+      color: #e50914;
+      transition: transform 0.3s;
+    }
+
+    .about-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .about-icon span {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #000;
+    }
+
+    .about-columns {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      text-align: left;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .column img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+    }
+
+    .column p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .column strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .column button {
+      background: #e50914;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .column button:hover {
+      background: #c40812;
+    }
+
+    .about-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 60px;
+      gap: 40px;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .stat .number {
+      color: #e50914;
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    .stat .heading {
+      color: #000;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .stat .description {
+      color: #555;
+      font-size: 16px;
+    }
+
+    /* === Our Team Section === */
+    .team-section {
+      padding: 60px 20px;
+      background: #fff;
+      color: #000;
+      text-align: center;
+    }
+
+    .team-section h2 {
+      color: #e50914;
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 per row */
+      gap: 30px;
+      justify-items: center;
+      padding: 0 20px;
+    }
+
+    .team-member {
+      position: relative;
+      width: 200px;
+    }
+
+    .team-member img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .team-info {
+      margin-top: 10px;
+    }
+
+    .team-info span {
+      display: block;
+      color: #000;
+      transition: color 0.3s;
+    }
+
+    .team-info span:hover {
+      color: red;
+    }
+
+    .social-icons {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .social-icons a {
+      color: red;
+      font-size: 18px;
+    }
+
+    .team-member:hover .social-icons {
+      opacity: 1;
+    }
+
+    @media (max-width: 992px) {
+      .about-columns {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .column {
+        text-align: center;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* === Animations === */
+    @keyframes fadeInTop {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInText {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes zoomIn {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* === NEW: Responsive Menu Button === */
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-buttons {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        border-radius: 4px;
+        z-index: 10;
+      }
+
+      .nav-buttons.show {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- === Top Section === -->
+  <div class="top-image-container">
+    <div class="brand-text">
+      <span>a</span><span>v</span><span>o</span>
+    </div>
+
+    <div class="nav-buttons">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="ourwork.html">Work</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- === NEW: Menu Button === -->
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <img src="img1.jpg" alt="Top Banner" class="top-image">
+
+    <div class="about-overlay">About</div>
+  </div>
+
+  <!-- === About Us Section === -->
+  <section class="about-us" id="about">
+    <h2>About Us</h2>
+
+    <div class="about-icons">
+      <div class="about-icon"><i class="fas fa-pencil-ruler"></i><span>UI/UX Design</span></div>
+      <div class="about-icon"><i class="fas fa-laptop-code"></i><span>Web Development</span></div>
+      <div class="about-icon"><i class="fas fa-cube"></i><span>Product Design</span></div>
+      <div class="about-icon"><i class="fas fa-mobile-alt"></i><span>Mobile Apps</span></div>
+      <div class="about-icon"><i class="fas fa-search"></i><span>SEO</span></div>
+    </div>
+
+    <div class="about-columns">
+      <div class="column">
+        <p><strong>Welcome to AVO A Personal Portfolio Web Agency</strong> Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+      </div>
+      <div class="column">
+        <img src="img2.jpg" alt="About Us Image">
+      </div>
+      <div class="column">
+        <p><strong>Far far away, behind the word mountains</strong> Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        <button>View All Projects</button>
+      </div>
+    </div>
+
+    <div class="about-stats">
+      <div class="stat">
+        <div class="number">01</div>
+        <div class="heading">Search Engine Optimization</div>
+        <div class="description">Far far away, behind the word mountains</div>
+      </div>
+      <div class="stat">
+        <div class="number">02</div>
+        <div class="heading">Product Design</div>
+        <div class="description">Far far away, behind the word mountains</div>
+      </div>
+      <div class="stat">
+        <div class="number">03</div>
+        <div class="heading">Mobile Development</div>
+        <div class="description">Far far away, behind the word mountains</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === Our Team Section === -->
+ <section class="team-section">
+  <h2>Our Team</h2>
+  <div class="team-grid">
+
+    <div class="team-member">
+      <img src="team1.jpg" alt="Team Member 1">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>Mike Smith</span>
+        <span>Web Developer</span>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="team2.jpg" alt="Team Member 2">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>Jane Doe</span>
+        <span>UI/UX Designer</span>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="team3.jpg" alt="Team Member 3">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>Robert Lee</span>
+        <span>SEO Expert</span>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="team4.jpg" alt="Team Member 4">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>Linda Kim</span>
+        <span>Project Manager</span>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="team5.jpg" alt="Team Member 5">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>Tom Hardy</span>
+        <span>Backend Dev</span>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="team6.jpg" alt="Team Member 6">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>Rachel Adams</span>
+        <span>Marketing Lead</span>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="team7.jpg" alt="Team Member 7">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>David Khan</span>
+        <span>Mobile Dev</span>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="team8.jpg" alt="Team Member 8">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="team-info">
+        <span>Ayesha Noor</span>
+        <span>Content Strategist</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navButtons = document.querySelector('.nav-buttons');
+
+    menuToggle.addEventListener('click', () => {
+      navButtons.classList.toggle('show');
+    });
+  </script>
+
+</body>
+</html>

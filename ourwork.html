@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Work - Avo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+    }
+
+    /* Top Banner */
+    .top-image-container {
+      position: relative;
+      width: 100%;
+      height: 450px;
+      overflow: hidden;
+    }
+
+    .top-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: zoomFade 5s ease-in-out forwards;
+    }
+
+    @keyframes zoomFade {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.05); opacity: 1; }
+    }
+
+    .brand-text {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    .brand-text span:first-child { color: white; }
+    .brand-text span:nth-child(2) { color: red; }
+    .brand-text span:last-child  { color: white; }
+
+    .nav-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      display: flex;
+    }
+
+    .nav-buttons a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .nav-buttons a:hover {
+      color: red;
+    }
+
+    /* Menu Toggle */
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+      z-index: 11;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-buttons {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        border-radius: 4px;
+      }
+
+      .nav-buttons.show {
+        display: flex;
+      }
+
+      .work-overlay {
+        font-size: 36px;
+      }
+
+      .work-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .project-image {
+        width: 100%;
+      }
+
+      .work-details {
+        padding: 20px;
+      }
+    }
+
+    /* Animated Overlay Text */
+    .work-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: transparent;
+      -webkit-text-stroke: 2px white;
+      text-shadow: 0 0 5px rgba(245, 14, 14, 0.954), 0 0 10px rgba(255,255,255,0.2);
+      text-transform: uppercase;
+      animation: slideUpFade 2s ease-in-out forwards;
+      z-index: 10;
+    }
+
+    @keyframes slideUpFade {
+      0% { transform: translate(-50%, 60%); opacity: 0; }
+      100% { transform: translate(-50%, -50%); opacity: 1; }
+    }
+
+    /* === Our Work Section === */
+    .our-work {
+      background: #f1f1f1;
+      text-align: center;
+      padding: 80px 20px;
+      color: #000;
+    }
+
+    .our-work h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+
+    .our-work-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .work-item {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .project-image {
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .work-details {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .work-details h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .work-details p {
+      margin: 0;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .developer-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .developer-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e50914;
+    }
+
+    .developer-info span {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Banner with Nav, Logo, and Overlay -->
+  <div class="top-image-container">
+    <div class="brand-text">
+      <span>a</span><span>v</span><span>o</span>
+    </div>
+
+    <div class="nav-buttons">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="work.html">Our Work</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Menu Toggle -->
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <img src="img1.jpg" alt="Our Work Banner" class="top-image">
+    <div class="work-overlay">Work</div>
+  </div>
+
+  <!-- === Our Work Section === -->
+  <section class="our-work" id="work">
+    <h2>Our Work</h2>
+    <div class="our-work-container">
+      <!-- Work Item 1 -->
+      <div class="work-item">
+        <img class="project-image" src="img3.jpg" alt="Project One">
+        <div class="work-details">
+          <h3>Cassette Tape</h3>
+          <p>Far far away, behind the word mountains...</p>
+          <div class="developer-info">
+            <img src="img6.jpg" alt="Developer One">
+            <span>Jane Doe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work Item 2 -->
+      <div class="work-item">
+        <img class="project-image" src="img4.jpg" alt="Project Two">
+        <div class="work-details">
+          <h3>UI/UX Design</h3>
+          <p>Far far away, behind the word mountains...</p>
+          <div class="developer-info">
+            <img src="img7.jpg" alt="Developer Two">
+            <span>John Smith</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work Item 3 -->
+      <div class="work-item">
+        <img class="project-image" src="img5.jpg" alt="Project Three">
+        <div class="work-details">
+          <h3>Application Miniwall Clock</h3>
+          <p>Far far away, behind the word mountains...</p>
+          <div class="developer-info">
+            <img src="img8.jpg" alt="Developer Three">
+            <span>Johnson</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toggle Script -->
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navButtons = document.querySelector('.nav-buttons');
+
+    menuToggle.addEventListener('click', () => {
+      navButtons.classList.toggle('show');
+    });
+  </script>
+
+</body>
+</html>
